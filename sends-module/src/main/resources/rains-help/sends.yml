@@ -1,0 +1,53 @@
+id: sends
+title: Sending items
+summary: Hand items to another player safely — they accept with a click, or everything comes back to you.
+intro: |
+  Dropping things at somebody's feet is how items vanish and friendships end. Send them properly instead: nothing changes hands until the other side says yes.
+icon: CHEST_MINECART
+category: Economy & trade
+order: 40
+module: sends
+permission: rainssends.use
+aliases: [send, sends, give, gift, mail, transfer, trade-items, parcel]
+keywords: [items, accept, decline, cancel, window, expire, gift]
+commands: [send, sends]
+related: [basics]
+sections:
+  - question: How do I send somebody items?
+    title: Sending
+    text: |
+      Type {cmd:/send create [player]} — or just {run:/send create} to pick from a list. A window opens: put in what you want to send (up to 27 stacks), then click <green>Send it</green>. Closing the window without sending gives you everything back.
+      The other player must be online — on this server or elsewhere on the network — because a send has to be accepted. You cannot send to yourself.
+  - question: What can I not send?
+    title: Limits
+    text: |
+      An empty window is refused, and so is anything <b>bound to you</b> (bound or insured items stay with their owner). Take it out and try again.
+      You may have {setting:sends:most-waiting|count} sends waiting at once that nobody has accepted yet. {if:sends:cooldown-seconds > 0}After a send you wait {setting:sends:cooldown-seconds|seconds} before the next, wherever you are on the network.{else}There is no wait between sends.{/if}
+  - question: Somebody sent me something. What now?
+    title: Receiving
+    text: |
+      You get a chat line with <green>[Accept]</green> and <red>[Decline]</red> buttons. Accept and everything is yours — what does not fit is dropped at your feet. If you have no room at all, nothing is lost: the accept is refused and the send waits; make space and try again before it runs out.
+      Not sure what is in it? {run:/sends} lists it, and shift-click shows the contents.
+  - question: How long does a send wait?
+    title: Time limit
+    text: |
+      {setting:sends:expiry-minutes|minutes} to accept. After that it runs out and the items go back to the sender. Sends survive restarts, and the clock keeps running while the server is down.
+  - question: Can I take a send back?
+    title: Cancelling
+    text: |
+      Yes, while it is not accepted: click <yellow>[Take it back]</yellow> in the chat line, use {cmd:/send cancel [id]}, or cancel it in {run:/sends} (asked to confirm). Your items come back. Declining by the recipient ({cmd:/send decline [id]}) does the same.
+      If your bag is full when they return, they wait for you — {run:/sends} gives them to you once there is room.
+  - question: What does /sends show?
+    title: The list
+    text: |
+      {run:/sends} opens everything open: sends <b>to you</b> (click to accept, right-click to decline, shift-click to look inside), sends <b>from you</b> (click to cancel), and items <b>coming back</b> to you (click to take them). Each shows how long it has left.
+      Without an id, {cmd:/send accept}, {cmd:/send decline} and {cmd:/send cancel} act on the only send they could mean; with several, they open the list instead.
+  - question: What if I was offline?
+    title: While you were away
+    when: sends:remind-on-join
+    text: |
+      When you log in you are told how many sends wait for you, and anything that came back to you while you were away is given to you.
+  - question: Can a send be lost or duplicated?
+    title: Safety
+    text: |
+      No. Items are written to disk before they change hands, so a crash leaves the send exactly as it was. On a network, if the sender cancels while you accept on another server, exactly one of you wins and the other is told it is gone.

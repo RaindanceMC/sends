@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
  */
 public final class SendsModule implements FlexModule {
 
-    private static final ModuleInfo INFO = ModuleInfo.of("sends", "Sends", "0.3.0")
+    private static final ModuleInfo INFO = ModuleInfo.of("sends", "Sends", "0.4.0")
             .describedAs("Send items to another player: put them in a window, they accept with a click.")
             .by("Raindancer118");
 
